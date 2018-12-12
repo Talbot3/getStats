@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2018-12-12 4:06:29 AM UTC
+// Last time updated: 2018-12-12 7:06:34 AM UTC
 
 // _______________
 // getStats v1.0.10
@@ -432,8 +432,9 @@ window.getStats = function(mediaStreamTrack, callback, interval) {
 
         if (!!result.packetsReceived && !!result.packetsLost) {
             var now = Date.now();
-            if (now - preTimestamp >= 5000) {
+            if (now - preTimestamp >= 5000 && resetPacketReceived && restePacketsLost) {
                 getStatsResult.video['recv'].packetsLostRate = Math.round((restePacketsLost.toString() / resetPacketReceived.toString()) * 100) / 100 + "%";
+                getStatsResult.video['recv'].totalPacketsLosts = (getStatsResult.video['recv'].totalPacketsLosts || 0) + restePacketsLost.toString();
                 resetPacketReceived && resetPacketReceived(0);
                 restePacketsLost && restePacketsLost(0);
                 preTimestamp = now;
